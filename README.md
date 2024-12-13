@@ -91,3 +91,79 @@ This project is licensed under the [MIT License](LICENSE) - see the LICENSE file
 ## Support
 
 For support, email [your-email@example.com](mailto:your-email@example.com) or create an issue in this repository.
+
+## Database Migration with Prisma
+
+Prisma is used in this project to manage database migrations. Follow these steps to create and apply migrations:
+
+### Prerequisites
+
+Ensure you have Prisma CLI installed. You can install it globally using npm:
+
+```bash
+npm install -g prisma
+```
+
+### Creating a Migration
+
+1. **Define Your Schema**: Update your `prisma/schema.prisma` file with the desired changes to your data model.
+
+2. **Create a Migration**: Run the following command to create a new migration based on your schema changes:
+
+   ```bash
+   npx prisma migrate dev --name <migration-name>
+   ```
+
+   Replace `<migration-name>` with a descriptive name for your migration. This command will:
+   - Generate a new migration file in the `prisma/migrations` directory.
+   - Apply the migration to your development database.
+
+### Applying Migrations
+
+To apply existing migrations to your database, use:
+
+```bash
+npx prisma migrate deploy
+```
+
+This command is typically used in production environments to apply all pending migrations.
+
+### Resetting the Database
+
+If you need to reset your database and apply all migrations from scratch, use:
+
+```bash
+npx prisma migrate reset
+```
+
+This command will:
+- Drop the existing database.
+- Recreate the database.
+- Apply all migrations.
+
+### Generating Prisma Client
+
+After creating or applying migrations, generate the Prisma Client to reflect the latest schema changes:
+
+```bash
+npx prisma generate
+```
+
+### Viewing the Database
+
+To inspect your database, you can use Prisma Studio, a visual database browser:
+
+```bash
+npx prisma studio
+```
+
+### Environment Variables
+
+All required environment variables for database configuration and other services are defined in the `.env` file. Ensure that this file is correctly set up with the necessary values before running migrations or starting the application.
+
+### Important Considerations
+
+- **Backup**: Always back up your data before running migrations in a production environment.
+- **Version Control**: Keep your `prisma/migrations` directory under version control to track changes to your database schema.
+
+By following these steps, you can effectively manage your database schema and migrations using Prisma.
